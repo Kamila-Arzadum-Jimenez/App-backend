@@ -1,0 +1,694 @@
+{
+  "id": "f31e4877-49c9-48b6-b190-4f3ae7538a9a",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "5",
+  "dialect": "pg",
+  "tables": {
+    "contratoOferta": {
+      "name": "contratoOferta",
+      "schema": "",
+      "columns": {
+        "ofertaID": {
+          "name": "ofertaID",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "contratadoID": {
+          "name": "contratadoID",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ofertanteID": {
+          "name": "ofertanteID",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "puntuacion": {
+          "name": "puntuacion",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "creadoEn": {
+          "name": "creadoEn",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "contratoOferta_ofertaID_oferta_ofertaID_fk": {
+          "name": "contratoOferta_ofertaID_oferta_ofertaID_fk",
+          "tableFrom": "contratoOferta",
+          "tableTo": "oferta",
+          "columnsFrom": [
+            "ofertaID"
+          ],
+          "columnsTo": [
+            "ofertaID"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "contratoOferta_contratadoID_usuario_usuarioID_fk": {
+          "name": "contratoOferta_contratadoID_usuario_usuarioID_fk",
+          "tableFrom": "contratoOferta",
+          "tableTo": "usuario",
+          "columnsFrom": [
+            "contratadoID"
+          ],
+          "columnsTo": [
+            "usuarioID"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "contratoOferta_ofertanteID_usuario_usuarioID_fk": {
+          "name": "contratoOferta_ofertanteID_usuario_usuarioID_fk",
+          "tableFrom": "contratoOferta",
+          "tableTo": "usuario",
+          "columnsFrom": [
+            "ofertanteID"
+          ],
+          "columnsTo": [
+            "usuarioID"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "pk_contrato_oferta": {
+          "name": "pk_contrato_oferta",
+          "columns": [
+            "ofertaID",
+            "ofertanteID",
+            "contratadoID"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "notificacion": {
+      "name": "notificacion",
+      "schema": "",
+      "columns": {
+        "notificacionID": {
+          "name": "notificacionID",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "categoria": {
+          "name": "categoria",
+          "type": "varchar(64)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "visto": {
+          "name": "visto",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "causadorID": {
+          "name": "causadorID",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "destinoUsuarioID": {
+          "name": "destinoUsuarioID",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "creadoEn": {
+          "name": "creadoEn",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "notificacion_causadorID_usuario_usuarioID_fk": {
+          "name": "notificacion_causadorID_usuario_usuarioID_fk",
+          "tableFrom": "notificacion",
+          "tableTo": "usuario",
+          "columnsFrom": [
+            "causadorID"
+          ],
+          "columnsTo": [
+            "usuarioID"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "notificacion_destinoUsuarioID_usuario_usuarioID_fk": {
+          "name": "notificacion_destinoUsuarioID_usuario_usuarioID_fk",
+          "tableFrom": "notificacion",
+          "tableTo": "usuario",
+          "columnsFrom": [
+            "destinoUsuarioID"
+          ],
+          "columnsTo": [
+            "usuarioID"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "oferta": {
+      "name": "oferta",
+      "schema": "",
+      "columns": {
+        "ofertaID": {
+          "name": "ofertaID",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "monto": {
+          "name": "monto",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "descripcion": {
+          "name": "descripcion",
+          "type": "varchar(512)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "categoria": {
+          "name": "categoria",
+          "type": "varchar(128)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ofertanteID": {
+          "name": "ofertanteID",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "fechaPlazo": {
+          "name": "fechaPlazo",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "creadoEn": {
+          "name": "creadoEn",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "oferta_ofertanteID_usuario_usuarioID_fk": {
+          "name": "oferta_ofertanteID_usuario_usuarioID_fk",
+          "tableFrom": "oferta",
+          "tableTo": "usuario",
+          "columnsFrom": [
+            "ofertanteID"
+          ],
+          "columnsTo": [
+            "usuarioID"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "ofertaFavorita": {
+      "name": "ofertaFavorita",
+      "schema": "",
+      "columns": {
+        "usuarioID": {
+          "name": "usuarioID",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ofertaID": {
+          "name": "ofertaID",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "creadoEn": {
+          "name": "creadoEn",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "ofertaFavorita_usuarioID_usuario_usuarioID_fk": {
+          "name": "ofertaFavorita_usuarioID_usuario_usuarioID_fk",
+          "tableFrom": "ofertaFavorita",
+          "tableTo": "usuario",
+          "columnsFrom": [
+            "usuarioID"
+          ],
+          "columnsTo": [
+            "usuarioID"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "ofertaFavorita_ofertaID_oferta_ofertaID_fk": {
+          "name": "ofertaFavorita_ofertaID_oferta_ofertaID_fk",
+          "tableFrom": "ofertaFavorita",
+          "tableTo": "oferta",
+          "columnsFrom": [
+            "ofertaID"
+          ],
+          "columnsTo": [
+            "ofertaID"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "pk_ofertaFavorita": {
+          "name": "pk_ofertaFavorita",
+          "columns": [
+            "ofertaID",
+            "usuarioID"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "perfilCelebridad": {
+      "name": "perfilCelebridad",
+      "schema": "",
+      "columns": {
+        "perfilCelebridadID": {
+          "name": "perfilCelebridadID",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "genero": {
+          "name": "genero",
+          "type": "varchar(32)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "plataformas": {
+          "name": "plataformas",
+          "type": "json",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "usuarioID": {
+          "name": "usuarioID",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "creadoEn": {
+          "name": "creadoEn",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "perfilCelebridad_usuarioID_usuario_usuarioID_fk": {
+          "name": "perfilCelebridad_usuarioID_usuario_usuarioID_fk",
+          "tableFrom": "perfilCelebridad",
+          "tableTo": "usuario",
+          "columnsFrom": [
+            "usuarioID"
+          ],
+          "columnsTo": [
+            "usuarioID"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "perfilEmpresa": {
+      "name": "perfilEmpresa",
+      "schema": "",
+      "columns": {
+        "perfilEmpresaID": {
+          "name": "perfilEmpresaID",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "productos": {
+          "name": "productos",
+          "type": "json",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "usuarioID": {
+          "name": "usuarioID",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "creadoEn": {
+          "name": "creadoEn",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "perfilEmpresa_usuarioID_usuario_usuarioID_fk": {
+          "name": "perfilEmpresa_usuarioID_usuario_usuarioID_fk",
+          "tableFrom": "perfilEmpresa",
+          "tableTo": "usuario",
+          "columnsFrom": [
+            "usuarioID"
+          ],
+          "columnsTo": [
+            "usuarioID"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "post": {
+      "name": "post",
+      "schema": "",
+      "columns": {
+        "postID": {
+          "name": "postID",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "descripcion": {
+          "name": "descripcion",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "apellido": {
+          "name": "apellido",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "comentarios": {
+          "name": "comentarios",
+          "type": "json",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "usuarioID": {
+          "name": "usuarioID",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "creadoEn": {
+          "name": "creadoEn",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "post_usuarioID_usuario_usuarioID_fk": {
+          "name": "post_usuarioID_usuario_usuarioID_fk",
+          "tableFrom": "post",
+          "tableTo": "usuario",
+          "columnsFrom": [
+            "usuarioID"
+          ],
+          "columnsTo": [
+            "usuarioID"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "reaccion": {
+      "name": "reaccion",
+      "schema": "",
+      "columns": {
+        "postID": {
+          "name": "postID",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "usuarioID": {
+          "name": "usuarioID",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tipo": {
+          "name": "tipo",
+          "type": "varchar(32)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "creadoEn": {
+          "name": "creadoEn",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "reaccion_postID_post_postID_fk": {
+          "name": "reaccion_postID_post_postID_fk",
+          "tableFrom": "reaccion",
+          "tableTo": "post",
+          "columnsFrom": [
+            "postID"
+          ],
+          "columnsTo": [
+            "postID"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "reaccion_usuarioID_usuario_usuarioID_fk": {
+          "name": "reaccion_usuarioID_usuario_usuarioID_fk",
+          "tableFrom": "reaccion",
+          "tableTo": "usuario",
+          "columnsFrom": [
+            "usuarioID"
+          ],
+          "columnsTo": [
+            "usuarioID"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "pk_reacciones": {
+          "name": "pk_reacciones",
+          "columns": [
+            "postID",
+            "usuarioID"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "solicitudOferta": {
+      "name": "solicitudOferta",
+      "schema": "",
+      "columns": {
+        "ofertaID": {
+          "name": "ofertaID",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "solicitanteID": {
+          "name": "solicitanteID",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "creadoEn": {
+          "name": "creadoEn",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "solicitudOferta_ofertaID_oferta_ofertaID_fk": {
+          "name": "solicitudOferta_ofertaID_oferta_ofertaID_fk",
+          "tableFrom": "solicitudOferta",
+          "tableTo": "oferta",
+          "columnsFrom": [
+            "ofertaID"
+          ],
+          "columnsTo": [
+            "ofertaID"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "solicitudOferta_solicitanteID_usuario_usuarioID_fk": {
+          "name": "solicitudOferta_solicitanteID_usuario_usuarioID_fk",
+          "tableFrom": "solicitudOferta",
+          "tableTo": "usuario",
+          "columnsFrom": [
+            "solicitanteID"
+          ],
+          "columnsTo": [
+            "usuarioID"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "solicitudOferta_ofertaID_solicitanteID_pk": {
+          "name": "solicitudOferta_ofertaID_solicitanteID_pk",
+          "columns": [
+            "ofertaID",
+            "solicitanteID"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "usuario": {
+      "name": "usuario",
+      "schema": "",
+      "columns": {
+        "usuarioID": {
+          "name": "usuarioID",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(64)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "password": {
+          "name": "password",
+          "type": "varchar(128)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nombre": {
+          "name": "nombre",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nombreUsuario": {
+          "name": "nombreUsuario",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "subNombre": {
+          "name": "subNombre",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "bio": {
+          "name": "bio",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "imagen": {
+          "name": "imagen",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ciudad": {
+          "name": "ciudad",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "telefono": {
+          "name": "telefono",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "direccion": {
+          "name": "direccion",
+          "type": "varchar(512)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "usuario_email_unique": {
+          "name": "usuario_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        }
+      }
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
